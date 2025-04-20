@@ -231,7 +231,7 @@ internal sealed class SceneTransitionModel : AddressableSceneLoader
 <a name="singleton-system"></a>
 ## 1️⃣ Singleton System
 
-Lightweight, and easy to use singleton and persistent singleton (Doesnt Destroyed On Scene Changes) base classes.
+Lightweight, and easy to use singleton and persistent singleton (Doesn't destroyed on scene changes) base classes.
 ```bash
 public class SingletonClass : Singleton<SingletonClass>{}
 public class PeristentSingletonClass : PersistentSingleton<PeristentSingletonClass>{}
