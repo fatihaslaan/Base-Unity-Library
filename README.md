@@ -162,6 +162,7 @@ There is also
 
 **Things To Keep In Mind**
 - When you call 'InitiateAddressableOperation' It automatically releases previous handle, so you don't have to worry about it
+- Call 'InitiateAddressableOperation' on 'Awake' if you want to let LoadingScreen wait for that operation before showing scene
 - You don't have to call 'ReleaseOperation()' on 'OnDestroy'. Parent class handles that
 - You can use your desired type after 'OnOperationSucceed'. To use it simply write 'operationResult' (If you use it somewhere else, you should know it is only setted after 'OnOperationSucced')
 - You can change settings of parent classes like; override 'GetInstantiatedObjectParent' and set it to something different than 'return null;' for setting parent, override 'AllowComponentAddition' and set 'return true;' if you want to add component to instantiated object if 'TryGetComponent' fails while using 'AddressableTypeInstantiator' or override 'GetLoadSceneMode' to change LoadMode of Scenes
