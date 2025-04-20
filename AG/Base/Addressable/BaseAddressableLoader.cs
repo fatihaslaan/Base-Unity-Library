@@ -26,7 +26,7 @@ namespace AG.Base.Addressable
         {
             operationResult = FinalizeOperationResult(result);
             //Check Finalize Status
-            if (operationResult.Equals(default))
+            if (!operationResult.Equals(default))
             {
                 OnOperationSucceed();
             }
