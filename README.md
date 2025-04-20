@@ -19,6 +19,7 @@ A Unity library containing tools and utilities for fast and clean game developme
 
 ---
 
+<a name="installation"></a>
 ## 📥 Installation
 
 1. Install 'Addressables' package to your project first!
@@ -26,6 +27,7 @@ A Unity library containing tools and utilities for fast and clean game developme
 
 ---
 
+<a name="introduction"></a>
 ## 🧩 Introduction
 
 This library is built to provide a solid foundation for Unity projects, helping developers avoid repetitive setup and annoying codes. Designed with scalability, reusability and safety in mind.
@@ -36,7 +38,7 @@ Features include:
 - Custom utilities to speed up development and ensure safety
 
 ---
-
+<a name="addressable-system"></a>
 ## 📦 Addressable System
 
 Load Addressables in your 'MonoBehaviour' classes just by a single inheritance.
@@ -170,6 +172,7 @@ There is also
 
 ---
 
+<a name="scene-transitions"></a>
 ## 🌇 Scene Transitions
 
 Change your scenes with this libraries addressable system and show loading screens if you want to.
@@ -225,6 +228,7 @@ internal sealed class SceneTransitionModel : AddressableSceneLoader
 
 ---
 
+<a name="singleton-system"></a>
 ## 1️⃣ Singleton System
 
 Lightweight, and easy to use singleton and persistent singleton (Doesnt Destroyed On Scene Changes) base classes.
@@ -244,6 +248,7 @@ public class AnyClass
 
 ---
 
+<a name="other-utilities"></a>
 ## 🧰 Other Utilities
 
 Set your serializefields in 'OnValidate' to make sure you assigned necessary variables.
@@ -263,12 +268,14 @@ private void OnValidate()
 
 ---
 
+<a name="contributing"></a>
 ## 🤝 Contributing
 
 If you have suggestions or improvements, feel free to open an issue or submit a pull request!
 
 ---
 
+<a name="credits"></a>
 ## 🙌 Credits
 
 Created by Fatih Aslan
