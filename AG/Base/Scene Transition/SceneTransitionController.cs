@@ -38,6 +38,7 @@ namespace AG.Base.SceneTransition
             while (AddressableManager.OngoingOperations.Count > 0)
             {
                 //Retry
+                //Waiting All Operations That Started On Awake
                 Debug.Log("Waiting Ongoing Operations... " + AddressableManager.OngoingOperations.Count);
                 yield return null;
             }
