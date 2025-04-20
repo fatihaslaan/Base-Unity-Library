@@ -1,4 +1,4 @@
-# Unity Base Library - AG
+# Base Unity Library - AG
 
 A Unity library containing tools and utilities for fast and clean game development that will be used in my games. Includes features like; addressables usage, scene transitions, singleton management, and a util to find objects. For now.
 
