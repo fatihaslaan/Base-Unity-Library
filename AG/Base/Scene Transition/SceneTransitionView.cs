@@ -18,9 +18,9 @@ namespace AG.Base.SceneTransition
 
         internal void HideLoading()
         {
-            if (operationTResult)
+            if (operationResult)
             {
-                operationTResult.StopTransitionAnimation(ReleaseOperation);
+                operationResult.StopTransitionAnimation(ReleaseOperation);
             }
         }
 
@@ -31,7 +31,7 @@ namespace AG.Base.SceneTransition
 
         protected override void OnOperationSucceed()
         {
-            operationTResult.PlayTransitionAnimation();
+            operationResult.PlayTransitionAnimation();
         }
 
         protected override Transform GetInstantiatedObjectParent()
