@@ -1,14 +1,13 @@
 using AG.Base.Addressable;
-using AG.Base.Util;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace AG.Base.SceneTransition
 {
     //Simple Class To Add Change Scene Functionality To Buttons
-    public class SceneChangerButton : MonoBehaviour
+    internal sealed class SceneChangerButton : MonoBehaviour
     {
-        [SerializeField] private AddressableSceneNames _sceneName;
+        [SerializeField] private AddressableSceneName _sceneName;
         [SerializeField] private Button _button;
 
         private void OnEnable()
@@ -27,10 +26,12 @@ namespace AG.Base.SceneTransition
         }
 
 #if UNITY_EDITOR
+
         private void OnValidate()
         {
-            ObjectFinder.FindObjectInChilderenWithType(ref _button, transform);
+            Editor.Util.ObjectFinder.FindObjectInChilderenWithType(ref _button, transform);
         }
+
 #endif
     }
 }

@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 namespace AG.Base.Addressable
 {
     //Loads Addressable Scene
-    public abstract class AddressableSceneLoader : BaseAddressableLoader<AddressableSceneNames, SceneInstance>
+    public abstract class AddressableSceneLoader : BaseAddressableLoader<AddressableSceneName, SceneInstance>
     {
-        protected sealed override AsyncOperationHandle CreateOperation(AddressableSceneNames sceneName, Action<SceneInstance> onOperationSucceed, Action onOperationFailed)
+        protected sealed override AsyncOperationHandle CreateOperation(AddressableSceneName sceneName, Action<SceneInstance> onOperationSucceed, Action onOperationFailed)
         {
             return AddressableManager.LoadAddressableSceneAsync(sceneName, onOperationSucceed, onOperationFailed, GetLoadSceneMode(), IsActivateSceneOnLoad());
         }

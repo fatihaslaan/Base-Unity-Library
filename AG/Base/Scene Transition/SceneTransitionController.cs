@@ -1,7 +1,6 @@
 using System.Collections;
 using AG.Base.Addressable;
 using AG.Base.Core;
-using AG.Base.Util;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,7 +14,7 @@ namespace AG.Base.SceneTransition
         private void Start()
         {
             AddListeners();
-            ChangeScene(AddressableSceneNames.Main_Menu_Scene);
+            ChangeScene(AddressableSceneName.Main_Menu_Scene);
         }
 
         private void OnSceneLoadFailed()
@@ -35,21 +34,22 @@ namespace AG.Base.SceneTransition
 
         private IEnumerator WaitOngoingOperations()
         {
-            while (AddressableManager.OngoingOperations.Count > 0)
+            while (AddressableManager.OngoingOperationCount > 0)
             {
                 //Retry
                 //Waiting All Operations That Started On Awake
-                Debug.Log("Waiting Ongoing Operations... " + AddressableManager.OngoingOperations.Count);
+                Debug.Log("Waiting Ongoing Operations... " + AddressableManager.OngoingOperationCount);
                 yield return null;
             }
             _sceneTransitionView.HideLoading();
             Debug.Log("Scene Change Completed");
         }
 
-        public void ChangeScene(AddressableSceneNames sceneName)
+        public void ChangeScene(AddressableSceneName sceneName)
         {
             Debug.Log("Scene Change Started");
-            _sceneTransitionModel.LoadScene(sceneName, _sceneTransitionView.ShowLoading);
+            _sceneTransitionView.ShowLoading();
+            _sceneTransitionModel.LoadScene(sceneName);
         }
 
         private void OnDestroy()
@@ -79,8 +79,8 @@ namespace AG.Base.SceneTransition
 
         private void OnValidate()
         {
-            ObjectFinder.FindObjectInChilderenWithType(ref _sceneTransitionModel, transform);
-            ObjectFinder.FindObjectInChilderenWithType(ref _sceneTransitionView, transform);
+            Editor.Util.ObjectFinder.FindObjectInChilderenWithType(ref _sceneTransitionModel, transform);
+            Editor.Util.ObjectFinder.FindObjectInChilderenWithType(ref _sceneTransitionView, transform);
         }
 
 #endif

@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace AG.Base.SceneTransition
 {
-    public class SceneTransitionLoadingScreen : MonoBehaviour
+    internal sealed class SceneTransitionLoadingScreen : MonoBehaviour
     {
-        public void PlayTransitionAnimation()
+        internal void PlayTransitionAnimation()
         {
 
         }
 
-        public void StopTransitionAnimation(Action onTransitionAnimationComplete)
+        internal void StopTransitionAnimation(Action onTransitionAnimationComplete)
         {
             onTransitionAnimationComplete?.Invoke();
         }

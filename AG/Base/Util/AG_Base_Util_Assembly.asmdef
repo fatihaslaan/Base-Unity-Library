@@ -1,0 +1,16 @@
+{
+    "name": "AG_Base_Util_Assembly",
+    "rootNamespace": "",
+    "references": [
+        "GUID:59b5550cad58542fa98e00200fca261c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

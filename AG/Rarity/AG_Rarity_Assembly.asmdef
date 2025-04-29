@@ -1,0 +1,17 @@
+{
+    "name": "AG_Rarity_Assembly",
+    "rootNamespace": "",
+    "references": [
+        "GUID:59b5550cad58542fa98e00200fca261c",
+        "GUID:4fafb2ef5416e46c98efd50ddd621b8c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

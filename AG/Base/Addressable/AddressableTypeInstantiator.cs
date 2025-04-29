@@ -25,7 +25,7 @@ namespace AG.Base.Addressable
             return result;
         }
 
-        //Decide Whether To Add Component On TryGetComponent Fails
+        //Decide Whether To Add Component On TryGetComponent Fail
         protected virtual bool AllowComponentAddition()
         {
             return false;

@@ -9,9 +9,8 @@ namespace AG.Base.SceneTransition
     {
         internal event Action OnSceneLoadFailed;
 
-        internal void LoadScene(AddressableSceneNames sceneName, Action onSceneLoadStart)
+        internal void LoadScene(AddressableSceneName sceneName)
         {
-            onSceneLoadStart?.Invoke();
             InitiateAddressableOperation(sceneName);
         }
 

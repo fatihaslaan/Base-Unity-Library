@@ -14,7 +14,7 @@ namespace AG.Base.Addressable
         //Track Ongoing Operations For;
         //-Showing On Loads
         //-Preventing NullReference Errors On Destroyed Object's Addressable Call
-        public static List<AsyncOperationHandle> OngoingOperations { get { return _ongoingOperations; } }
+        public static int OngoingOperationCount { get { return _ongoingOperations.Count; } }
 
         private static List<AsyncOperationHandle> _ongoingOperations = new();
 
@@ -27,9 +27,9 @@ namespace AG.Base.Addressable
 
             asyncOperation.Completed += operation =>
             {
-                if (_ongoingOperations.Contains(operation))
+                if(_ongoingOperations.Contains(asyncOperation))
                 {
-                    _ongoingOperations.Remove(operation);
+                    _ongoingOperations.Remove(asyncOperation);
                     if (operation.Status == AsyncOperationStatus.Failed)
                     {
                         Debug.LogError($"{errorMessage} {operation.OperationException}");
@@ -58,7 +58,7 @@ namespace AG.Base.Addressable
             return LoadAddressableLogic(() => Addressables.LoadAssetAsync<T>(addressableReference), $"Error Loading Asset: {addressableReference}", onSuccess, onFail);
         }
 
-        public static AsyncOperationHandle<IList<T>> LoadAddressableAssetsAsync<T>(AddressableLabelNames labelName, Action<IList<T>> onSuccess, Action onFail)
+        public static AsyncOperationHandle<IList<T>> LoadAddressableAssetsAsync<T>(AddressableLabelName labelName, Action<IList<T>> onSuccess, Action onFail)
         {
             return LoadAddressableLogic(() => Addressables.LoadAssetsAsync<T>(labelName.ToString()), $"Error Loading Assets With Label: {labelName}", onSuccess, onFail);
         }
@@ -72,7 +72,7 @@ namespace AG.Base.Addressable
             return LoadAddressableLogic(() => Addressables.InstantiateAsync(addressableReference, parent), $"Error Instantiating Asset: {addressableReference}", onSuccess, onFail);
         }
 
-        public static AsyncOperationHandle<SceneInstance> LoadAddressableSceneAsync(AddressableSceneNames scenName, Action<SceneInstance> onSuccess, Action onFail, LoadSceneMode loadMode = LoadSceneMode.Single, bool activateOnLoad = true)
+        public static AsyncOperationHandle<SceneInstance> LoadAddressableSceneAsync(AddressableSceneName scenName, Action<SceneInstance> onSuccess, Action onFail, LoadSceneMode loadMode = LoadSceneMode.Single, bool activateOnLoad = true)
         {
             return LoadAddressableLogic(() => Addressables.LoadSceneAsync(scenName.ToString(), loadMode, activateOnLoad), $"Error Loading Scene: {scenName}", onSuccess, onFail);
         }
@@ -100,9 +100,9 @@ namespace AG.Base.Addressable
             Release(ref operation, op => Addressables.ReleaseInstance(op));
         }
 
-        public static void ReleaseScene(ref AsyncOperationHandle sceneHandle, bool autoReleaseHandle = true)
+        public static void ReleaseScene(ref AsyncOperationHandle sceneOperation, bool autoReleaseHandle = true)
         {
-            Release(ref sceneHandle, op => Addressables.UnloadSceneAsync(op, autoReleaseHandle));
+            Release(ref sceneOperation, op => Addressables.UnloadSceneAsync(op, autoReleaseHandle));
         }
 
         private static void Release(ref AsyncOperationHandle operation, Action<AsyncOperationHandle> releaseFunction)
