@@ -252,7 +252,7 @@ public class AnyClass
 <a name="other-utilities"></a>
 ## 🧰 Other Utilities
 
-Set your serializefields in 'OnValidate' to make sure you assigned necessary variables.
+- Set your serializefields in 'OnValidate' to make sure you assigned necessary variables.
 ```bash
 [SerializeField] private SceneTransitionView _sceneTransitionView;
 
@@ -265,6 +265,35 @@ private void OnValidate()
 }
 
 #endif
+```
+- Create ScriptableObject Variables that can be accessible from any where
+
+- Generate a random number that changes with luck
+
+- Get a random Rarity with luck
+```bash
+randomRarityCalculator.GetRandomRarity(_data.Items.Max(x => x.Rarity))
+```
+
+- Create a pool
+```bash
+[SerializeField] private Item _itemPrefab;
+private ObjectPooler<Item> _itemPool;
+
+private void Awake()
+{
+    _itemPool = new(InstantiateItem);
+}
+//How Items In Pool Will Be Generated
+private Item InstantiateItem()
+{
+    return Instantiate(_itemPrefab);
+}
+
+private void GetItem()
+{
+    Item item = _itemPool.GetObject();
+}
 ```
 
 ---
