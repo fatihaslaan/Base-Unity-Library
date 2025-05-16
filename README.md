@@ -295,6 +295,7 @@ private void GetItem()
     Item item = _itemPool.GetObject();
 }
 ```
+- Custom Layout let's you achieve curved items and smooth transitions when an item's base position changes (It's hard with Unity's horizontal layout because it's automatically changes position of child)
 
 ---
 
