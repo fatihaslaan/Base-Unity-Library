@@ -6,63 +6,61 @@ namespace AG.Base.Addressable
 {
     public abstract class BaseAddressableLoader<TKey, TResult> : MonoBehaviour
     {
+        [NonSerialized]
         protected TResult operationResult = default;
 
         private AsyncOperationHandle _currentAsyncOperation = default;
 
-        protected void InitiateAddressableOperation(TKey addressableReference)
+        protected void InitiateAddressableOperation(TKey addressableReference, Action onOperationSucceed, Action onOperationFailed)
         {
             SetCurrentOperation(CreateOperation(addressableReference, OperationSucceed, OperationFailed));
-        }
 
-        private void SetCurrentOperation(AsyncOperationHandle operation)
-        {
-            //Release Previous Operation
-            ReleaseOperation();
-            _currentAsyncOperation = operation;
-        }
-
-        private void OperationSucceed(TResult result)
-        {
-            operationResult = FinalizeOperationResult(result);
-            //Check Finalize Status
-            if (!operationResult.Equals(default))
+            void OperationSucceed(TResult result)
             {
-                OnOperationSucceed();
+                operationResult = FinalizeOperationResult(result);
+                //Check Finalize Status
+                if (!operationResult.Equals(default))
+                {
+                    onOperationSucceed?.Invoke();
+                }
+                else
+                {
+                    OperationFailed();
+                }
             }
-            else
-            {
-                OperationFailed();
-            }
-        }
 
-        private void OperationFailed()
-        {
-            //TODO: Call Info Panel Util
-            ReleaseOperation();
-            OnOperationFailed();
+            void OperationFailed()
+            {
+                //TODO: Call Info Panel Util
+                ReleaseOperation();
+                onOperationFailed?.Invoke();
+            }
+
+            void SetCurrentOperation(AsyncOperationHandle operation)
+            {
+                //Release Previous Operation
+                ReleaseOperation();
+                _currentAsyncOperation = operation;
+            }
         }
 
         //Call This Method On Child For Releasing
         protected void ReleaseOperation()
         {
-            ReleaseOperationMethod(ref _currentAsyncOperation);
-        }
-
-        //Addressable Release Method
-        protected virtual void ReleaseOperationMethod(ref AsyncOperationHandle operation)
-        {
-            //Make Sure That No References Left And Release Operation From Memory
-            ClearOperationResult();
-            AddressableManager.ReleaseAsset(ref operation);
+            ReleaseOperationMethod(_currentAsyncOperation);
+            _currentAsyncOperation = default;
         }
 
         //Return Addressable Load Method
         protected abstract AsyncOperationHandle CreateOperation(TKey addressableReference, Action<TResult> onOperationSucceed, Action onOperationFailed);
 
-        protected abstract void OnOperationSucceed();
-
-        protected abstract void OnOperationFailed();
+        //Addressable Release Method
+        protected virtual void ReleaseOperationMethod(AsyncOperationHandle operation)
+        {
+            //Make Sure That No References Left And Release Operation From Memory
+            ClearOperationResult();
+            AddressableManager.ReleaseAsset(operation);
+        }
 
         //Clear All References Before Releasing
         protected virtual void ClearOperationResult()

@@ -90,22 +90,22 @@ namespace AG.Base.Addressable
 
         #region Release
 
-        public static void ReleaseAsset(ref AsyncOperationHandle operation)
+        public static void ReleaseAsset(AsyncOperationHandle operation)
         {
-            Release(ref operation, Addressables.Release);
+            Release(operation, Addressables.Release);
         }
 
-        public static void ReleaseInstance(ref AsyncOperationHandle operation)
+        public static void ReleaseInstance(AsyncOperationHandle operation)
         {
-            Release(ref operation, op => Addressables.ReleaseInstance(op));
+            Release(operation, op => Addressables.ReleaseInstance(op));
         }
 
-        public static void ReleaseScene(ref AsyncOperationHandle sceneOperation, bool autoReleaseHandle = true)
+        public static void ReleaseScene(AsyncOperationHandle sceneOperation, bool autoReleaseHandle = true)
         {
-            Release(ref sceneOperation, op => Addressables.UnloadSceneAsync(op, autoReleaseHandle));
+            Release(sceneOperation, op => Addressables.UnloadSceneAsync(op, autoReleaseHandle));
         }
 
-        private static void Release(ref AsyncOperationHandle operation, Action<AsyncOperationHandle> releaseFunction)
+        private static void Release(AsyncOperationHandle operation, Action<AsyncOperationHandle> releaseFunction)
         {
             if (operation.IsValid())
             {
@@ -114,7 +114,6 @@ namespace AG.Base.Addressable
                     _ongoingOperations.Remove(operation);
                 }
                 releaseFunction.Invoke(operation);
-                operation = default;
             }
         }
 

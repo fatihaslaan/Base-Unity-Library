@@ -13,7 +13,17 @@ namespace AG.Base.SceneTransition
 
         internal void ShowLoading()
         {
-            InitiateAddressableOperation(sceneTransitionPrefab);
+            InitiateAddressableOperation(sceneTransitionPrefab, OnOperationSucceed, OnOperationFailed);
+
+            void OnOperationSucceed()
+            {
+                operationResult.PlayTransitionAnimation();
+            }
+            
+            void OnOperationFailed()
+            {
+                OnTransitionPrefabLoadFailed?.Invoke();
+            }
         }
 
         internal void HideLoading()
@@ -22,16 +32,6 @@ namespace AG.Base.SceneTransition
             {
                 operationResult.StopTransitionAnimation(ReleaseOperation);
             }
-        }
-
-        protected override void OnOperationFailed()
-        {
-            OnTransitionPrefabLoadFailed?.Invoke();
-        }
-
-        protected override void OnOperationSucceed()
-        {
-            operationResult.PlayTransitionAnimation();
         }
 
         protected override Transform GetInstantiatedObjectParent()
@@ -43,7 +43,7 @@ namespace AG.Base.SceneTransition
 
         private void OnValidate()
         {
-            if(sceneTransitionPrefab == null)
+            if (sceneTransitionPrefab == null)
             {
                 Debug.Log("Scene Transition Prefab Is Not Setted");
             }

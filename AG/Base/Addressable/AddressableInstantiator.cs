@@ -5,7 +5,7 @@ using System;
 namespace AG.Base.Addressable
 {
     //Instantiates Addressable GameObject
-    public abstract class AddressableInstantiator : BaseAddressableLoader<object, GameObject>
+    public class AddressableInstantiator : BaseAddressableLoader<object, GameObject>
     {
         //Sealed For Preventing Wrong Usage
         protected sealed override AsyncOperationHandle CreateOperation(object addressableReference, Action<GameObject> onOperationSucceed, Action onOperationFailed)
@@ -13,9 +13,9 @@ namespace AG.Base.Addressable
             return AddressableManager.InstantiateAddressableAssetAsync(addressableReference, onOperationSucceed, onOperationFailed, GetInstantiatedObjectParent());
         }
 
-        protected override void ReleaseOperationMethod(ref AsyncOperationHandle operation)
+        protected override void ReleaseOperationMethod(AsyncOperationHandle operation)
         {
-            AddressableManager.ReleaseInstance(ref operation);
+            AddressableManager.ReleaseInstance(operation);
         }
 
         protected virtual Transform GetInstantiatedObjectParent()

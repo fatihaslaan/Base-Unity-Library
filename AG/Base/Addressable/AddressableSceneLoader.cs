@@ -6,24 +6,24 @@ using UnityEngine.SceneManagement;
 namespace AG.Base.Addressable
 {
     //Loads Addressable Scene
-    public abstract class AddressableSceneLoader : BaseAddressableLoader<AddressableSceneName, SceneInstance>
+    public class AddressableSceneLoader : BaseAddressableLoader<AddressableSceneName, SceneInstance>
     {
         protected sealed override AsyncOperationHandle CreateOperation(AddressableSceneName sceneName, Action<SceneInstance> onOperationSucceed, Action onOperationFailed)
         {
             return AddressableManager.LoadAddressableSceneAsync(sceneName, onOperationSucceed, onOperationFailed, GetLoadSceneMode(), IsActivateSceneOnLoad());
         }
 
-        protected override void ReleaseOperationMethod(ref AsyncOperationHandle operation)
+        protected override void ReleaseOperationMethod(AsyncOperationHandle operation)
         {
             if (GetLoadSceneMode() == LoadSceneMode.Single)
             {
                 //In Single Mode Releasing Previous Scene Done Automatically
-                base.ReleaseOperationMethod(ref operation);
+                base.ReleaseOperationMethod(operation);
             }
             else
             {
                 //Release Previous Scene If Current Mode Is Additive
-                AddressableManager.ReleaseScene(ref operation);
+                AddressableManager.ReleaseScene(operation);
             }
         }
 

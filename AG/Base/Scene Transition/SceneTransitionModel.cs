@@ -11,20 +11,20 @@ namespace AG.Base.SceneTransition
 
         internal void LoadScene(AddressableSceneName sceneName)
         {
-            InitiateAddressableOperation(sceneName);
-        }
+            InitiateAddressableOperation(sceneName, OnOperationSucceed, OnOperationFailed);
 
-        protected override void OnOperationFailed()
-        {
-            OnSceneLoadFailed?.Invoke();
-        }
-
-        protected override void OnOperationSucceed()
-        {
-            Debug.Log("Scene Load Completed");
-            if (GetLoadSceneMode() == LoadSceneMode.Additive)
+            void OnOperationSucceed()
             {
-                Resources.UnloadUnusedAssets();
+                Debug.Log("Scene Load Completed");
+                if (GetLoadSceneMode() == LoadSceneMode.Additive)
+                {
+                    Resources.UnloadUnusedAssets();
+                }
+            }
+
+            void OnOperationFailed()
+            {
+                OnSceneLoadFailed?.Invoke();
             }
         }
     }

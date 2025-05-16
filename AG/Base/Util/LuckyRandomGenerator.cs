@@ -14,9 +14,19 @@ namespace AG.Base.Util
             this.luck = luck;
         }
 
-        public float GetRandomValue(int maxVal)
+        public int GetRandomValue(int minVal, int maxVal)
+        {
+            return _random.Next(minVal, maxVal);
+        }
+
+        public int GetRandomValue(int maxVal)
         {
             return _random.Next(maxVal);
+        }
+
+        public float GetLuckyRandomValue(int minVal, int maxVal)
+        {
+            return GetRandomValue(minVal, maxVal) * luck.Value;
         }
 
         public float GetLuckyRandomValue(int maxVal)

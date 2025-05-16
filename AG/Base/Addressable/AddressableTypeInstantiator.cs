@@ -1,11 +1,13 @@
+using System;
 using UnityEngine;
 
 namespace AG.Base.Addressable
 {
     //Gets Desired Type From Instantiated Addressable GameObject
-    public abstract class AddressableTypeInstantiator<TResult> : AddressableInstantiator where TResult : MonoBehaviour
+    public class AddressableTypeInstantiator<TResult> : AddressableInstantiator where TResult : MonoBehaviour
     {
-        protected new TResult operationResult = default;
+        [NonSerialized]
+        new protected TResult operationResult = default;
 
         protected override GameObject FinalizeOperationResult(GameObject result)
         {
@@ -16,7 +18,7 @@ namespace AG.Base.Addressable
             else if (AllowComponentAddition())
             {
                 operationResult = result.AddComponent<TResult>();
-                Debug.Log("No Component Found On Instantiated Result, Added One");
+                Debug.Log("No Component Found On Instantiated Result, Added One"); 
             }
             else
             {
