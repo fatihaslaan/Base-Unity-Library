@@ -11,6 +11,7 @@ A Unity library containing tools and utilities for fast and clean game developme
 - 📥 [Installation](#installation)
 - 🧩 [Introduction](#introduction)
 - 📦 [Addressable System](#addressable-system)
+- 🖼️ [Custom Layout](#custom-layout)
 - 🌇 [Scene Transitions](#scene-transitions)
 - 1️⃣ [Singleton System](#singleton-system)
 - 🧰 [Other Utilities](#other-utilities)
@@ -38,6 +39,7 @@ Features include:
 - Custom utilities to speed up development and ensure safety
 
 ---
+
 <a name="addressable-system"></a>
 ## 📦 Addressable System
 
@@ -170,6 +172,18 @@ There is also
 - You should override 'ClearOperationResult' and clear all references if you duplicated 'operationResult' for unload that operation from memory. (Even if you release addressable, if a reference is still exist it will stick in memory)
 
 > **This Classes Written After Reading 'Unity Addressable Documentation'**
+
+---
+
+<a name="custom-layout"></a>
+## 🖼️ Custom Layout
+
+Unity's horizontal layout automatically changes positions of child items on new additions/removals. (Because items are transform and when a transform location changes child location also changes immediately)
+
+And that makes creating transition animations harder.
+
+- Achieve smooth transitions when an item's base position changes
+- Curveable and rotatable layout items
 
 ---
 
